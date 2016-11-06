@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-TodoMVC</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https:unpkg.com/director/build/director.js"></script>
+    <style>[v-clock] {display:none;}</style>
+</head>
+<body>
+    <section class="todoapp">
+        <header class="header">
+            <h1>todos</h1>
+            <input class="new-todo"
+            autofocus autocomplete="off"
+            v-model="newTodo"
+            placeholder="what are you planning to do?"
+            @keyup.enter="addTodo" />
+        </header>
+    </section>
+</body>
+<script src="../../dist/vue.js"></script>
+</html>
