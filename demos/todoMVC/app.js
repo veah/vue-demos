@@ -8,7 +8,7 @@ var todoStorage = {
         return todos
     },
     save(todos){
-        localStorage.setItem(STORAGE_KEY,JSON.STRINGIFY(TODOS))
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(todos))
     }
 }
 
