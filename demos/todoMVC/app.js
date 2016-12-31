@@ -112,4 +112,29 @@ var app = new Vue({
             this.todos = filters.active(this.todos)
         }
     },
+
+    // a custom directive to wait for the DOM to be updated
+    //before focuing on the input field
+    directives: {
+        'todo-focus': function(el,value){
+            if(value){
+                el.focus()
+            }
+        }
+    }
 })
+
+function onHashChange(){
+    var visibility = window.location.hash.replace(/#\/?/,'')
+    if(filters[visibility]){
+        app.visibility = visibility
+    } else {
+        window.location.hash = ''
+        app.visibility = 'all'
+    }
+}
+
+window.addEventListener('hashchange',onHashChange)
+onHashChange()
+
+app.$mount('.todoapp')
