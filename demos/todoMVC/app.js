@@ -49,7 +49,7 @@ var app = new Vue({
     },
 
     computed: {
-        filterTodos(){
+        filteredTodos(){
             return filters[this.visibility](this.todos)
         },
         remaining(){
