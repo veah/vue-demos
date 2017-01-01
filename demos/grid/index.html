@@ -10,13 +10,15 @@
 
 <body>
     <!--component template-->
-    <script type="text/x-template" id="grid-tempalte">
+    <!--使用组件的意义在于组件可以管理自己的数据和方法，清晰-->
+    <script type="text/x-template" id="grid-template">
         <table v-if="filteredData.length">
             <thead>
                 <tr>
                     <th v-for="key in columns"
                         @click="sortBy(key)"
                         :class="{ active: sortKey == key }">
+                        {{ key | capitalize }}
                         <span class="arrow" :class="sortOrders[key]>0?'asc':'dsc'"></span>
                     </th>
                 </tr>
@@ -35,8 +37,9 @@
     <!--demo root element-->
     <div id="demo">
         <form id="search">
-            Search <input name="query" v-model="searchQuery>
+            Search <input name="query" v-model="searchQuery">
         </form>
+        <!--继承props-->
         <demo-grid
             :data="gridData"
             :columns="gridColumns"
