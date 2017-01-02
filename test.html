@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function multi(n){
+            var fn = function(x){
+                return multi(x*n)
+            }
+
+            fn.valueOf = function(){
+                return n
+            }
+            return fn
+        }
+
+        console.log(multi(1)(2)(3));
+    </script>
+</body>
+</html>
