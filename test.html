@@ -18,6 +18,44 @@
         }
 
         console.log(multi(1)(2)(3));
+
+        var location = {
+            hash:'#contents',
+
+            host:'www.baidu.com:80',
+            hostname:'www.baidu.com',
+            href:'http://www.baidu.com',
+
+            pathname:'/WileyCDA/',
+            port:'8080',
+
+            protocol:'http:',
+            search:'?q=javascript&num=10',
+
+            //导航到新url，但是不在历史记录中生成新纪录，不能返回
+            replace:function(){},
+            // 以最有效的方式重新加载当前页面，传递参数true后则强制从服务器重新加载
+            reload:function(){}
+
+        }
+        var text = '?q=js&num=10&name=qwer&lang=chi&age=19&ID=bat&what=up'
+        function getStringArgs(searchText){
+            var qs = searchText.length>0?searchText.substring(1):'';
+            var items = qs.length?qs.split('&'):[];
+
+            var args = {};
+
+            items.forEach(function(item){
+                var newItem = item.split('=');
+                var name = decodeURIComponent(newItem[0]),
+                    value = decodeURIComponent(newItem[1]);
+                if(name.length){
+                    args[name] = value;
+                }
+            })
+
+            return args
+        }
     </script>
 </body>
 </html>
