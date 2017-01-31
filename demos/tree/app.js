@@ -57,7 +57,7 @@ Vue.component('item',{
             }
         },
         addChild: function(){
-            this.mdoel.children.push({
+            this.model.children.push({
                 name: 'new stuff'
             })
         }
