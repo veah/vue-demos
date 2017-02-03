@@ -5,7 +5,7 @@ Vue.component('modal',{
 
 // init root app
 new Vue({
-    el:'app',
+    el:'#app',
     data: {
         showModal: false
     }
