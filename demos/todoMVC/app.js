@@ -124,6 +124,7 @@ var app = new Vue({
     }
 })
 
+// 使用onHashChange来完成替换app的visibility的工作
 function onHashChange(){
     var visibility = window.location.hash.replace(/#\/?/,'')
     if(filters[visibility]){
