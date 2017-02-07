@@ -1,35 +1,35 @@
-//localStorage persistance
 var STORAGE_KEY = 'todos-vuejs-2.0'
-var todoStorage = {
-    fetch(){
+var todoStorage ={
+    fetch: function(){
         var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-        todos.forEach((todo,index) => {todo.id = index})
+        todos.forEach(function(todo,index){
+            todo.id = index
+        })
         todoStorage.uid = todos.length
         return todos
     },
-    save(todos){
+    save: function(todos){
         localStorage.setItem(STORAGE_KEY,JSON.stringify(todos))
     }
 }
 
-//visibility filters
+// visibility filters
 var filters = {
-    all(todos){
+    all: function(todos){
         return todos
     },
-    active(todos){
+    active: function(todos){
         return todos.filter(function(todo){
             return !todo.completed
         })
     },
-    completed(todos){
+    completed: function(todos){
         return todos.filter(function(todo){
             return todo.completed
         })
     }
 }
 
-// vue instance
 var app = new Vue({
     data: {
         todos: todoStorage.fetch(),
@@ -38,28 +38,29 @@ var app = new Vue({
         visibility: 'all'
     },
 
-    //watch todos change for localStorage presistence
-    watch: {
+    // watch todos change for localStorage presistence
+    watch:{
         todos: {
-            handler(todos){
+            handler: function(todos){
                 todoStorage.save(todos)
             },
-            deep:true
+            deep: true
         }
     },
 
+    // computed properties
     computed: {
-        filteredTodos(){
+        filteredTodos: function(){
             return filters[this.visibility](this.todos)
         },
-        remaining(){
+        remaining: function(){
             return filters.active(this.todos).length
         },
-        allDone:{
-            get(){
+        allDone: {
+            get: function(){
                 return this.remaining === 0
             },
-            set(value){
+            set: function(value){
                 this.todos.forEach(function(todo){
                     todo.completed = value
                 })
@@ -68,17 +69,18 @@ var app = new Vue({
     },
 
     filters: {
-        pluralize(n){
+        pluralize: function(n){
             return n === 1?'item':'items'
         }
     },
 
     // methods that implement data logic
+    // note there is no DOM manipulation here at all
     methods: {
-        addTodo(){
+        addTodo: function(){
             var value = this.newTodo && this.newTodo.trim()
             if(!value){
-                return
+                return 
             }
             this.todos.push({
                 id: todoStorage.uid++,
@@ -87,46 +89,43 @@ var app = new Vue({
             })
             this.newTodo = ''
         },
-        removeTodo(todo){
+        removeTodo: function(todo){
             this.todos.splice(this.todos.indexOf(todo),1)
         },
-        editTodo(todo){
+        editTodo: function (todo) {
             this.beforeEditCache = todo.title
-            this.editTodo = todo
+            this.editedTodo = todo
         },
-        doneEdit(todo){
-            if(!this.editTodo){
+        doneEdit:function(todo){
+            if(!this.editedTodo){
                 return 
             }
-            this.editTodo = null
+            this.editedTodo = null
             todo.title = todo.title.trim()
             if(!todo.title){
                 this.removeTodo(todo)
             }
         },
-        cancelEdit(todo){
-            this.editTodo = null
+        cancelEdit:function(todo){
+            this.editedTodo = null
             todo.title = this.beforeEditCache
         },
-        removeCompleted(){
+        removeCompleted:function(){
             this.todos = filters.active(this.todos)
         }
     },
-
-    // a custom directive to wait for the DOM to be updated
-    //before focuing on the input field
-    directives: {
-        'todo-focus': function(el,value){
-            if(value){
-                el.focus()
+     directives: {
+        'todo-focus': function (el, value) {
+        if (value) {
+            el.focus()
             }
         }
-    }
+     }
 })
 
-// 使用onHashChange来完成替换app的visibility的工作
+// 使用route来处理visibility的变化
 function onHashChange(){
-    var visibility = window.location.hash.replace(/#\/?/,'')
+    var visibility = window.location.hash.replace(/#\/?/, '')
     if(filters[visibility]){
         app.visibility = visibility
     } else {
