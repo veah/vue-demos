@@ -1,40 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Vue-TodoMVC</title>
+    <title>Vue.js todoMVC</title>
     <link rel="stylesheet" href="index.css">
-    <script src="https:unpkg.com/director/build/director.js"></script>
-    <style>[v-clock] {display:none;}</style>
+    <script src="https://unpkg.com/director/build/director.js"></script>
+    <style>[v-cloak] { display: none; }</style>
 </head>
 <body>
     <section class="todoapp">
         <header class="header">
             <h1>todos</h1>
             <input class="new-todo"
-            autofocus autocomplete="off"
-            v-model="newTodo"
-            placeholder="what are you planning to do?"
-            @keyup.enter="addTodo" />
+                autofocus autocomplete="off"
+                placeholder="what needs to be done"
+                v-model="newTodo"
+                @keyup.enter="addTodo">
         </header>
+
         <section class="main" v-show="todos.length" v-cloak>
-            <input class="toggle-all" type="checkbox" v-model="allDone">
+            <input type="checkbox" class="toggle-all" v-model="allDone">
             <ul class="todo-list">
                 <li v-for="todo in filteredTodos"
                     class="todo"
                     :key="todo.id"
-                    :class="{ completed: todo.completed, editing: todo == editedTodo }" >
+                    :class="{completed: todo.completed,editing: todo == editedTodo}"
+                >
                     <div class="view">
-                        <input class="toggle" type="checkbox" v-model="todo.completed">
-                        <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
+                        <input type="checkbox" class="toggle" v-model="todo.completed">
+                        <label @dbclick="editTodo(todo)">{{ todo.title }}</label>
                         <button class="destroy" @click="removeTodo(todo)"></button>
                     </div>
-                    <input class="edit" type="text"
-                           v-model="todo.title"
-                           v-todo-focus="todo == editedTodo"
-                           @blur="doneEdit(todo)"
-                           @keyup.enter="doneEdit(todo)"
-                           @keyup.esc="cancelEdit(todo)" >
+                    <input type="text" class="edit"
+                        v-model="todo.title"
+                        v-todo-focus="todo == editedTodo"
+                        @blur="doneEdit(todo)"
+                        @keyup.enter="doneEdit(todo)"
+                        @keyup.esc="cancelEdit(todo)">
                 </li>
             </ul>
         </section>
@@ -44,15 +46,14 @@
             </span>
             <ul class="filters">
                 <li><a href="#/all" :class="{ selected: visibility == 'all' }">All</a></li>
-                <li><a href="#/active" :class="{ selected: visibility == 'active' }">Active</a></li>
-                <li><a href="#/completed" :class="{ selected: visibility == 'completed' }">Completed</a></li>
+                <li><a href="#/active" :class="{selected: visibility == 'active'}">Active</a></li>
+                <li><a href="#/completed" :class="{selected: visibility == 'completed'}">Completed</a></li>       
             </ul>
-            <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
-                Clear Completed
-            </button>
+            <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">Clear completed</button>
         </footer>
     </section>
+    
+    <script src="../../dist/vue.js"></script>
+    <script src="app.js"></script>
 </body>
-<script src="../../dist/vue.js"></script>
-<script src="app.js"></script>
 </html>
