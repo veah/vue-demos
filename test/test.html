@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="test.css">
+    <script src="../dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="transition-conponents-demo">
+        <div id="transition-components-demo" class="demo">
+            <input v-model="view" type="radio" value="v-a" id="a" name="view">
+            <label for="a">A</label>
+            <input v-model="view" type="radio" value="v-b" id="b" name="view">
+            <label for="b">B</label>
+            <transition name="component-fade" mode="out-in">
+                <component v-bind:is="view"></component>
+            </transition>
+        </div>
+    </div>
+
+    <script src="test.js"></script>
+</body>
+
+</html>
