@@ -7,7 +7,7 @@
 
 
 .list-complete-item {
-  transition: all 3s;
+  transition: all 1s;
   display: inline-block;
   margin-right: 10px;
 }
@@ -19,7 +19,7 @@
   position: absolute;
 }
 .list-complete-move {
-  transition: transform 3s;
+  transition: transform 1s;
 }
 
 
@@ -46,5 +46,5 @@
     margin-bottom: 0
 }
 .cell-move {
-    transition: transform 1s;
+    transition: transform 2s;
 }

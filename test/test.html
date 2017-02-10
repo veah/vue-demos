@@ -7,9 +7,13 @@
     <link rel="stylesheet" href="test.css">
     <script src="../dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+
 </head>
 
 <body>
+
+    <p>多组件过渡</p>
     <div id="transition-conponents-demo">
         <div id="transition-components-demo" class="demo">
             <input v-model="view" type="radio" value="v-a" id="a" name="view">
@@ -23,7 +27,8 @@
     </div>
 
     <br>
-   
+
+    <p>列表的位移过渡 ——v-move 特性，它会在元素的改变定位的过程中应用</p>
     <div id="list-complete-demo" class="demo">
         <button v-on:click="shuffle">Shuffle</button>
         <button v-on:click="add">Add</button>
@@ -35,6 +40,8 @@
         </transition-group>
     </div>
 
+    <br>
+
     <div id="sudoku-demo">
         <strong>lazy sudoku</strong>
         <button @click="shuffle"> shuffle</button>
@@ -43,6 +50,22 @@
                 {{ cell.number }}
             </div>
         </transition-group>
+    </div>
+
+    <br>
+
+    <p>数据驱动——动态过渡</p>
+    <div id="dynamic-fade-demo">
+        setMaxFadeDuration: <input type="text" v-model="temp" 
+                                @keyup.enter="updateValue"
+                                :placeholder="maxFadeDuration">
+        <br>
+        Fade In: <input type="range" v-model="fadeInDuration" min="0" v-bind:max="maxFadeDuration"> 
+        Fade Out:<input type="range" v-model="fadeOutDuration" min="0" v-bind:max="maxFadeDuration">
+        <transition v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave">
+            <p v-if="show">hello</p>
+        </transition>
+         <button v-on:click="stop = true">Stop it!</button>
     </div>
 
     <script src="test.js"></script>
