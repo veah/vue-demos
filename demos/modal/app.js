@@ -1,12 +1,14 @@
+import Vue from '../../dist/vue';
+
 // register modal component
-Vue.component('modal',{
-    template:'#modal-template'
-})
+Vue.component('modal', {
+    template: '#modal-template'
+});
 
 // init root app
 new Vue({
-    el:'#app',
+    el: '#app',
     data: {
         showModal: false
     }
-})
+});
