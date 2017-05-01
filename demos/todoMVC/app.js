@@ -1,6 +1,8 @@
+import Vue from '../../dist/vue';
+
 const STORAGE_KEY = 'todos-vuejs-2.0';
 const todoStorage = {
-    fetch() {
+    fetch () {
         const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         todos.forEach((todo, index) => {
             todo.id = index;
@@ -8,20 +10,20 @@ const todoStorage = {
         todoStorage.uid = todos.length;
         return todos;
     },
-    save(todos) {
+    save (todos) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
     }
 };
 
 // visibility filters
 const filters = {
-    all(todos) {
+    all (todos) {
         return todos;
     },
-    active(todos) {
+    active (todos) {
         return todos.filter(todo => !todo.completed);
     },
-    completed(todos) {
+    completed (todos) {
         return todos.filter(todo => todo.completed);
     }
 };
@@ -37,7 +39,7 @@ const app = new Vue({
     // watch todos change for localStorage presistence
     watch: {
         todos: {
-            handler(todos) {
+            handler (todos) {
                 todoStorage.save(todos);
             },
             deep: true
@@ -46,17 +48,17 @@ const app = new Vue({
 
     // computed properties
     computed: {
-        filteredTodos() {
+        filteredTodos () {
             return filters[this.visibility](this.todos);
         },
-        remaining() {
+        remaining () {
             return filters.active(this.todos).length;
         },
         allDone: {
-            get() {
+            get () {
                 return this.remaining === 0;
             },
-            set(value) {
+            set (value) {
                 this.todos.forEach((todo) => {
                     todo.completed = value;
                 });
@@ -65,7 +67,7 @@ const app = new Vue({
     },
 
     filters: {
-        pluralize(n) {
+        pluralize (n) {
             return n === 1 ? 'item' : 'items';
         }
     },
@@ -73,7 +75,7 @@ const app = new Vue({
     // methods that implement data logic
     // note there is no DOM manipulation here at all
     methods: {
-        addTodo() {
+        addTodo () {
             const value = this.newTodo && this.newTodo.trim();
             if (!value) {
                 return;
@@ -85,14 +87,14 @@ const app = new Vue({
             });
             this.newTodo = '';
         },
-        removeTodo(todo) {
+        removeTodo (todo) {
             this.todos.splice(this.todos.indexOf(todo), 1);
         },
-        editTodo(todo) {
+        editTodo (todo) {
             this.beforeEditCache = todo.title;
             this.editedTodo = todo;
         },
-        doneEdit(todo) {
+        doneEdit (todo) {
             if (!this.editedTodo) {
                 return;
             }
@@ -102,11 +104,11 @@ const app = new Vue({
                 this.removeTodo(todo);
             }
         },
-        cancelEdit(todo) {
+        cancelEdit (todo) {
             this.editedTodo = null;
             todo.title = this.beforeEditCache;
         },
-        removeCompleted() {
+        removeCompleted () {
             this.todos = filters.active(this.todos);
         }
     },
@@ -120,7 +122,7 @@ const app = new Vue({
 });
 
 // 使用route来处理visibility的变化
-function onHashChange() {
+function onHashChange () {
     const visibility = window.location.hash.replace(/#\/?/, '');
     if (filters[visibility]) {
         app.visibility = visibility;

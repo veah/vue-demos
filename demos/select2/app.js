@@ -3,7 +3,7 @@ import Vue from '../../dist/vue';
 Vue.component('select2', {
     props: ['options', 'value'],
     template: '#select2-template',
-    mounted() {
+    mounted () {
         const vm = this;
         $(this.$el)
             .val(this.value)
@@ -15,18 +15,18 @@ Vue.component('select2', {
             });
     },
     watch: {
-        value(value) {
+        value (value) {
             // update value
             $(this.$el).val(value).trigger('change');
         },
-        options(options) {
+        options (options) {
             // update options
             $(this.$el).select2({
                 data: options
             });
         }
     },
-    destroyed() {
+    destroyed () {
         $(this.$el).off().select2('destroy');
     }
 });
